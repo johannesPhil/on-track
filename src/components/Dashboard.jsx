@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Section from "./Section";
 import Modal from "./Modal";
 import ConfirmDialog from "./ConfirmDialog";
+import TaskList from "./TaskList";
 import { useBackgroundImage } from "../services/queries/unsplash";
 import { preloadImage } from "../utils/unsplash";
 
@@ -211,7 +212,7 @@ function Dashboard() {
     >
       {/* Background attribution */}
       {backgroundImage?.author && (
-        <div className="fixed bottom-4 right-4 text-xs text-white/70 bg-black/20 px-2 py-1 rounded backdrop-blur-sm">
+        <div className="fixed bottom-4 left-4 text-xs text-white/70 bg-black/20 px-2 py-1 rounded backdrop-blur-sm">
           Photo by{" "}
           <a
             href={backgroundImage.authorUrl}
@@ -346,6 +347,8 @@ function Dashboard() {
         title="Delete Item"
         message="Are you sure you want to delete this item? This action cannot be undone."
       />
+
+      <TaskList />
     </div>
   );
 }
