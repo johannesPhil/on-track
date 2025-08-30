@@ -227,30 +227,28 @@ function Dashboard() {
 
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white drop-shadow-lg">
-            Goals
+          <h1 className="text-sm font-bold text-white drop-shadow-lg">
+            Milestones
           </h1>
 
-          {sections.length > 0 && (
-            <button
-              onClick={() => setSectionsVisible(!sectionsVisible)}
-              className="flex items-center justify-center mx-auto p-2 text-white/80 hover:text-white transition-colors"
+          <button
+            onClick={() => setSectionsVisible(!sectionsVisible)}
+            className="flex items-center justify-center mx-auto p-2 text-white/80 hover:text-white transition-colors"
+          >
+            <svg
+              className={`w-6 h-6 transition-transform duration-300 ease-in-out hover:cursor-pointer ${
+                sectionsVisible ? "rotate-180" : "rotate-0"
+              }`}
+              fill="currentColor"
+              viewBox="0 0 20 20"
             >
-              <svg
-                className={`w-6 h-6 transition-transform duration-300 ease-in-out hover:cursor-pointer ${
-                  sectionsVisible ? "rotate-180" : "rotate-0"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-          )}
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
         </div>
 
         <div
@@ -261,81 +259,76 @@ function Dashboard() {
           }`}
         >
           <div className="space-y-6">
-            {sections.map((section, index) => (
-              <div
-                key={section.id}
-                className={`transition-all duration-300 ease-out ${
-                  sectionsVisible
-                    ? "opacity-100 transform translate-y-0"
-                    : "opacity-0 transform translate-y-2"
-                }`}
-                style={{
-                  transitionDelay: sectionsVisible ? `${index * 100}ms` : "0ms",
-                }}
-              >
-                <Section
-                  section={section}
-                  checklists={checklists}
-                  subchecklists={subchecklists}
-                  onToggle={handleToggle}
-                  onEdit={(item) => openModal(item.type || "section", item)}
-                  onDelete={confirmDelete}
-                  onAddChecklist={(parentId) =>
-                    openModal("checklist", null, parentId)
-                  }
-                  onAddSubchecklist={(parentId) =>
-                    openModal("subchecklist", null, parentId)
-                  }
-                />
-              </div>
-            ))}
-
-            {sections.length > 0 && (
-              <div
-                className={`text-center transition-all duration-300 ease-out ${
-                  sectionsVisible
-                    ? "opacity-100 transform translate-y-0"
-                    : "opacity-0 transform translate-y-2"
-                }`}
-                style={{
-                  transitionDelay: sectionsVisible
-                    ? `${sections.length * 100}ms`
-                    : "0ms",
-                }}
-              >
-                <button
-                  onClick={() => openModal("section")}
-                  className="text-white/80 hover:text-white px-4 py-2 transition-colors cursor-pointer"
+            {sections.length > 0 ? (
+              sections.map((section, index) => (
+                <div
+                  key={section.id}
+                  className={`transition-all duration-300 ease-out ${
+                    sectionsVisible
+                      ? "opacity-100 transform translate-y-0"
+                      : "opacity-0 transform translate-y-2"
+                  }`}
+                  style={{
+                    transitionDelay: sectionsVisible
+                      ? `${index * 100}ms`
+                      : "0ms",
+                  }}
                 >
-                  <svg
-                    className="w-8 h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  <Section
+                    section={section}
+                    checklists={checklists}
+                    subchecklists={subchecklists}
+                    onToggle={handleToggle}
+                    onEdit={(item) => openModal(item.type || "section", item)}
+                    onDelete={confirmDelete}
+                    onAddChecklist={(parentId) =>
+                      openModal("checklist", null, parentId)
+                    }
+                    onAddSubchecklist={(parentId) =>
+                      openModal("subchecklist", null, parentId)
+                    }
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-white/60 text-sm italic drop-shadow-sm text-center">
+                No milestones yet. Add one below .
+              </p>
             )}
+
+            <div
+              className={`text-center transition-all duration-300 ease-out ${
+                sectionsVisible
+                  ? "opacity-100 transform translate-y-0"
+                  : "opacity-0 transform translate-y-2"
+              }`}
+              style={{
+                transitionDelay: sectionsVisible
+                  ? `${sections.length * 100}ms`
+                  : "0ms",
+              }}
+            >
+              <button
+                onClick={() => openModal("section")}
+                className="text-white/80 hover:text-white px-4 py-2 transition-colors cursor-pointer"
+              >
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-
-        {sections.length === 0 && (
-          <div className="text-center py-12">
-            <button
-              onClick={() => openModal("section")}
-              className="text-white hover:text-white/80 text-xl font-medium transition-colors drop-shadow-lg"
-            >
-              Plans/Roadmap
-            </button>
-          </div>
-        )}
       </div>
 
       <Modal

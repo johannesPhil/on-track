@@ -32,7 +32,7 @@ A modern, responsive career dashboard built with React and Vite, featuring dynam
 
 ```bash
 git clone <repository-url>
-cd career-dashboard
+cd on-track
 ```
 
 2. Install dependencies
